@@ -1,5 +1,7 @@
 package Aulas.Aula154.model.entities;
 
+import Aulas.Aula154.model.exceptions.DomainException;
+
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -11,6 +13,9 @@ public class Reservation {
     private static DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     public Reservation(LocalDate checkIn, LocalDate checkOut, Integer roomNumber) {
+        if (checkOut.isBefore(checkIn)) {
+            throw new DomainException("Check-out date must be after check-in date");
+        }
         this.checkIn = checkIn;
         this.checkOut = checkOut;
         this.roomNumber = roomNumber;
@@ -38,17 +43,16 @@ public class Reservation {
         // return checkOut.getDays - checkIn.getDays;
     }
 
-    public String updateDates(LocalDate checkIn, LocalDate checkOut) {
+    public void updateDates(LocalDate checkIn, LocalDate checkOut) {
         LocalDate now = LocalDate.now();
         if (checkIn.isBefore(now) || checkOut.isBefore(now)) {
-            return "Reservation dates for update must be future";
+            throw new DomainException("Reservation dates for update must be future dates");
         }
         if (checkOut.isBefore(checkIn)) {
-            return "Check out date must be after check in date";
+            throw new DomainException("Check-out date must be after check-in date");
         }
         this.checkIn = checkIn;
         this.checkOut = checkOut;
-        return null;
     }
 
     @Override
