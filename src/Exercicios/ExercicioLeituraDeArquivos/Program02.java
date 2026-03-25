@@ -10,24 +10,25 @@ import java.util.List;
 public class Program02 {
     public static void main(String[] args) {
         try {
-            List<Integer> numeros = new ArrayList<>();
             BufferedReader bf = new BufferedReader(new FileReader("c:\\temp\\numeros.txt"));
-            String linha = bf.readLine();
-            while (linha != null) {
-                numeros.add(Integer.parseInt(linha));
-                linha = bf.readLine();
-            }
+
+            String linha;
             int soma = 0;
             int maior = Integer.MIN_VALUE;
             int menor = Integer.MAX_VALUE;
-            for (Integer numero : numeros) {
+
+            while ((linha = bf.readLine()) != null) {
+                int numero = Integer.parseInt(linha);
+
                 soma += numero;
-                if (maior < numero) {
+
+                if (numero > maior){
                     maior = numero;
                 }
-                if (menor > numero) {
+                if (numero < menor){
                     menor = numero;
                 }
+
             }
 
             System.out.println(soma);
