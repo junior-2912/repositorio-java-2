@@ -21,11 +21,15 @@ public class ServicoContrato {
 
         double valorParcela = contrato.getValor() / meses;
 
-        double valorJuros = servicoPagamentoOnline.juros(valorParcela, meses);
-        double valorTaxaPagamento = servicoPagamentoOnline.taxaPagamento(valorParcela + valorJuros);
-
         for (int i = 1; i <= meses; i++) {
-            new Parcela(dataInicio.plusMonths(i));
+            double resultadoJuros =  servicoPagamentoOnline.juros(valorParcela, i);
+            double resultadoTaxa = servicoPagamentoOnline.taxaPagamento(valorParcela + resultadoJuros);
+            contrato.adicionarParcelas(new Parcela(dataInicio.plusMonths(i), valorParcela + resultadoJuros + resultadoTaxa));
         }
+
+        for (Parcela parcela : contrato.getParcelas()) {
+            System.out.println(parcela.getDataPagamento() + " - " + parcela.getValor());
+        }
+
     }
 }
