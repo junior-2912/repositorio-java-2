@@ -4,9 +4,11 @@ import Exercicios.ExercicioFixacao177.entities.Contrato;
 import Exercicios.ExercicioFixacao177.entities.Parcela;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class ServicoContrato {
     private ServicoPagamentoOnline servicoPagamentoOnline;
+    private DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     public ServicoContrato(ServicoPagamentoOnline servicoPagamentoOnline) {
         this.servicoPagamentoOnline = servicoPagamentoOnline;
@@ -26,10 +28,5 @@ public class ServicoContrato {
             double resultadoTaxa = servicoPagamentoOnline.taxaPagamento(valorParcela + resultadoJuros);
             contrato.adicionarParcelas(new Parcela(dataInicio.plusMonths(i), valorParcela + resultadoJuros + resultadoTaxa));
         }
-
-        for (Parcela parcela : contrato.getParcelas()) {
-            System.out.println(parcela.getDataPagamento() + " - " + parcela.getValor());
-        }
-
     }
 }

@@ -1,6 +1,7 @@
 package Exercicios.ExercicioFixacao177.application;
 
 import Exercicios.ExercicioFixacao177.entities.Contrato;
+import Exercicios.ExercicioFixacao177.entities.Parcela;
 import Exercicios.ExercicioFixacao177.services.Paypal;
 import Exercicios.ExercicioFixacao177.services.ServicoContrato;
 
@@ -11,7 +12,9 @@ import java.util.Scanner;
 public class Program {
     public static void main(String[] args) {
         Scanner entrada = new Scanner(System.in);
+
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
         System.out.println("Entre com os dados do contrato:");
 
         System.out.print("Numero: ");
@@ -30,6 +33,9 @@ public class Program {
 
         System.out.println("Parcelas: ");
         servicoContrato.processarContrato(contrato, nParcelas);
+        for (Parcela parcela : contrato.getParcelas()) {
+            System.out.println(parcela.getDataPagamento().format(fmt) + " - " + parcela.getValor());
+        }
 
         entrada.close();
     }
