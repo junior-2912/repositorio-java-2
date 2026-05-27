@@ -3,8 +3,11 @@ package Aulas.Aula154.application;
 import Aulas.Aula154.model.entities.Reservation;
 import Aulas.Aula154.model.exceptions.DomainException;
 
+
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.Scanner;
 
 public class Program {
